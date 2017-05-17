@@ -5,8 +5,8 @@ import de.tu_bs.ips.List;
 * @author Simon Schmidt 4701325 Gruppe 10A
 */
 
-class MyList implements List {
-    private ListEntry head = null;
+class MyList<T extends Comparable<T>> implements List<T> {   //<T extends Comparable<T>> geht sicher, dass der Typ T auch vergleichbar und sortierbar ist. T kann somit z.b. keine farbe sein.
+    private ListEntry<T> head = null;
 
     @Override
     public boolean isEmpty() {
@@ -14,19 +14,19 @@ class MyList implements List {
     }
 
     @Override
-    public Comparable first() {
-        return head.value(); // da Comparable erwartet wird
+    public T first() {
+        return head.value(); // da T erwartet wird
     }
     /**
-    * @return gibt den ersten Eintrag der Liste zurück, head
+    * @return gibt den ersten Eintrag der Liste zurï¿½ck, head
     */
-    public ListEntry firstEntry() {
+    public ListEntry<T> firstEntry() {
         return head;
     }
 
     @Override
-    public void insert(Comparable e) {
-        ListEntry newEntry = new ListEntry(e); // Eintrag erzeugen
+    public void insert(T e) {
+        ListEntry<T> newEntry = new ListEntry<T>(e); // Eintrag erzeugen
 
         if (head == null) {
             head = newEntry; // Einfuegen, falls Liste leer ist
@@ -43,8 +43,8 @@ class MyList implements List {
     }
 
     @Override
-    public void append(Comparable e) {
-        ListEntry newEntry = new ListEntry(e); // Eintrag erzeugen
+    public void append(T e) {
+        ListEntry<T> newEntry = new ListEntry<T>(e); // Eintrag erzeugen
 
         if (head == null) {
             head = newEntry; // Einfuegen, falls Liste leer ist
@@ -60,14 +60,14 @@ class MyList implements List {
     }
 
     @Override
-    public void delete(Comparable e) {
+    public void delete(T e) {
         // Startelemente auf null setzen falls letztes Element entfernt wird
         if (e.equals(head) && head.next == head) {
             head = null;
             return;
         }
 
-        ListEntry current = head;
+        ListEntry<T> current = head;
         do {
             if (current.compareTo(e) == 0) {
                 current.prev.next = current.next;
@@ -84,7 +84,7 @@ class MyList implements List {
         }
 
         int counter = 0;
-        ListEntry current = head;
+        ListEntry<T> current = head;
         do {
             counter++;
             current = current.next;
@@ -92,7 +92,7 @@ class MyList implements List {
         return counter;
     }
     /**
-    * Erstellt iterator und @return gibt den erstellten iterator zurück
+    * Erstellt iterator und @return gibt den erstellten iterator zurï¿½ck
     */
     public DLLIterator iterator() {
         return new DLLIterator(this);
