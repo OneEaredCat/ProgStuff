@@ -5,21 +5,21 @@
 */
 
 class ListEntry<T extends Comparable<T>> {
-    ListEntry prev = null;
-    ListEntry next = null;
-    private Comparable data;
+    ListEntry<T> prev = null; //ListEntry is a raw type. References to generic type ListEntry<T> should be parameterized
+    ListEntry<T> next = null;
+    private T data;
 
-    ListEntry(Comparable data) {
+    ListEntry(T data) { //Comparable durch T ersetzt, da data nicht mehr vom Typ comparable, sondern vom eingeführten Typ T sein muss.
         this.data = data;
     }
 
-    public Comparable value() {
+    public T value() {
         return data;
     }
 
     public int compareTo(T o) {
         if (o instanceof ListEntry) {
-            ListEntry e = (ListEntry) o;
+            ListEntry<T> e = (ListEntry<T>) o;
             return data.compareTo(e.value());
         } else {
             return data.compareTo(o);
@@ -28,7 +28,7 @@ class ListEntry<T extends Comparable<T>> {
 
     public boolean equals(Object o) {
         if (o instanceof ListEntry) {
-            ListEntry e = (ListEntry) o;
+            ListEntry<T> e = (ListEntry<T>) o;
             return data.equals(e.value());
         } else {
             return false;
