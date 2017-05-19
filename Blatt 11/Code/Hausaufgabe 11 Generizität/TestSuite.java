@@ -13,7 +13,7 @@ class TestSuite {
 
         Integer[] input = source.next();
         for (int i = 0; i < input.length; i++) {
-            list.sortedInsert(input[i]);
+            list.sortedInsert(input[i]); //hie ist noch ein sortedInsert, muss bereinigt werden
         }
 
         input = source.next();
